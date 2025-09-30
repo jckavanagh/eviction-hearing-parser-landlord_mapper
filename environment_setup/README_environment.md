@@ -1,16 +1,21 @@
-1. From root directory in Terminal run either command:
+# Environment Setup Instructions
 
-   ./environment_setup/install_chromedriver.py
+## 1. Installing ChromeDriver
 
-   OR
+TASK: from project's root directory, in terminal run either command:
 
-   python ./envrionment_setup/install_chromedriver.py
+`./environment_setup/install_chromedriver.py`
 
-#installs in project's root directory a version of chromedriver unique to local computer's chrome version
-✅ Detects Chrome version on macOS, Linux, and Windows
-✅ Automatically downloads the matching ChromeDriver version
-✅ Handles both old and new ChromeDriver distribution systems (pre-115 and 115+)
-✅ Platform detection for Mac (Intel & ARM), Linux, and Windows
-✅ Extracts and places ChromeDriver in the project root directory
-✅ Makes it executable on Unix-like systems
-✅ Checks for existing ChromeDriver and asks before replacing
+OR
+
+`python ./envrionment_setup/install_chromedriver.py`
+
+_NOTE: installs in project's root directory a version of ChromeDriver unique to local computer's chrome browser version_
+
+- ✅ Detects Chrome version on macOS, Linux, and Windows
+- ✅ Automatically downloads the matching ChromeDriver version
+- ✅ Handles both old and new ChromeDriver distribution systems (pre-115 and 115+)
+- ✅ Platform detection for Mac (Intel & ARM), Linux, and Windows
+- ✅ Extracts and places ChromeDriver in the project root directory
+- ✅ Makes it executable on Unix-like systems
+- ✅ Checks for existing ChromeDriver and asks before replacing
