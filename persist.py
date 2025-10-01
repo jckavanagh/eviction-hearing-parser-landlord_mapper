@@ -40,7 +40,8 @@ def rest_case(case: EvictionCase):
         {
             "case_num": case.case_number,
             "status": case.status,
-            "reg_url": case.register_url,
+            #"reg_url": case.register_url,
+            "reg_url": str(case.register_url) if case.register_url else None,
             "prec_num": case.precinct_number,
             "style": case.style,
             "plaint": case.plaintiff,
