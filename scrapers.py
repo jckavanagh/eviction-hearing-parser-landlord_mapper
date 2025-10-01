@@ -48,6 +48,12 @@ class FakeScraper:
         register_url = case_search.get_register_url(result_soup)
         status, type = case_search.get_status_and_type(result_soup)
 
+        #### Landlord Mapper: Added this check ###
+        if register_url is None or status is None or type is None:
+            print(f"ERROR: Could not get complete data for case {case_id}, skipping")
+            return None
+        #### Landlord Mapper: Added this check ###
+
         if status.lower() not in hearing.statuses_map:
             load_dotenv()
             if os.getenv("LOCAL_DEV") != "true":
