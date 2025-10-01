@@ -687,7 +687,7 @@ class BaseParser:
             ),
             writ_returned_to_court=self.get_writ_returned_to_court(soup),
             judgement_for=winner if winner is not None else "",
-            match_score=score if score is not None else "",
+            match_score=str(score) if score is not None else "",
             date_filed=self.get_date_filed(soup),
         )
 
