@@ -59,34 +59,70 @@ def parse_all_from_parse_filings(
     return parsed_cases
 
 
+# def persist_parsed_cases(cases: List[Dict[str, Any]]) -> None:
+#     import persist
+
+#     logger.info(
+#         f"Finished making case list, now will send all {len(cases)} cases to SQL."
+#     )
+
+#     failed_cases = []
+#     for parsed_case in cases:
+#         try:
+#             persist.rest_case(parsed_case)
+#         except:
+#             try:
+#                 failed_cases.append(parsed_case.case_number)
+#             except:
+#                 logger.error(
+#                     "A case failed to be parsed but it doesn't have a case number."
+#                 )
+
+#     if failed_cases:
+#         error_message = f"Failed to send the following case numbers to SQL:\n{', '.join(failed_cases)}"
+#         log_and_email(
+#             error_message,
+#             "Case Numbers for Which Sending to SQL Failed",
+#             error=True,
+#         )
+#     logger.info("Finished sending cases to SQL.")
+
 def persist_parsed_cases(cases: List[Dict[str, Any]]) -> None:
     import persist
-
-    logger.info(
-        f"Finished making case list, now will send all {len(cases)} cases to SQL."
-    )
-
+    
+    logger.info(f"Finished making case list, now will send all {len(cases)} cases to SQL.")
+    
+    success_count = 0
     failed_cases = []
-    for parsed_case in cases:
+    
+    for i, parsed_case in enumerate(cases):
         try:
             persist.rest_case(parsed_case)
-        except:
+            success_count += 1
+            if i % 10 == 0:  # Print progress every 10 cases
+                print(f"Progress: {i}/{len(cases)} cases processed...")
+        except Exception as e:
+            print(f"ERROR persisting case {parsed_case.case_number}: {e}")
+            # Print full error for FIRST failed case only
+            if len(failed_cases) == 0:
+                import traceback
+                print("Full error traceback for first failed case:")
+                traceback.print_exc()
+            
             try:
                 failed_cases.append(parsed_case.case_number)
             except:
-                logger.error(
-                    "A case failed to be parsed but it doesn't have a case number."
-                )
-
+                logger.error("A case failed to be parsed but it doesn't have a case number.")
+    
+    print(f"\nPersistence Summary:")
+    print(f"✓ Successfully persisted: {success_count}/{len(cases)}")
+    print(f"✗ Failed: {len(failed_cases)}/{len(cases)}")
+    
     if failed_cases:
         error_message = f"Failed to send the following case numbers to SQL:\n{', '.join(failed_cases)}"
-        log_and_email(
-            error_message,
-            "Case Numbers for Which Sending to SQL Failed",
-            error=True,
-        )
+        log_and_email(error_message, "Case Numbers for Which Sending to SQL Failed", error=True)
+    
     logger.info("Finished sending cases to SQL.")
-
 
 @click.command()
 @click.option("--infile", type=click.File(mode="r"), required=False)
