@@ -96,7 +96,7 @@ class FakeScraper:
                 yield CalendarQuery(
                     afterdate=afterdate,
                     beforedate=beforedate,
-                    prefix=f"{prefix_text}-{year}*",
+                    prefix=f"{prefix_text}-{year % 100:02d}*",
                 )
 
     def fetch_settings(
