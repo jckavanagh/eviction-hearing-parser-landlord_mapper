@@ -30,13 +30,17 @@ TASK: from project's root directory, in terminal run commands:
 
 `pip install -r requirements.txt`
 
-## 3A. Set .env variables & connect to Supabase Database
+_NOTE: dependency [arcgis] has been commented out to expedite requirements installation_
+
+## 3A. Create .env template & set variables for connection to Supabase Database
 
 TASK: from project's root directory, in terminal run commands:
 
 `echo "LOCAL_DATABASE_URL=postgresql://[user]:[database_password]@[host]:[port]/postgres" > .env`
 
 `echo "LOCAL_DEV=true" >> .env`
+
+TASK: in newly created .env file, adjust variables in LOCAL_DATABASE_URL --> [user] [database_password] [host] [port]
 
 _NOTE: variables for LOCAL_DATABASE_URL can be found via navigating to your Supabase Database's connection string, selecting URI from the Type drop down menu and expanding the View Parameters drop down_
 
@@ -47,7 +51,8 @@ TASK: from project's root directory, in terminal run commands:
 `./environment_setup/test_database_connection.py`
 
 TASK: Check Supabase for test_table (via navigation sidebar: Table Editor, Database, etc)
-TASK: In terminal prompt 'What would you like to do with test_table?' Enter choice [2] to delete test_table from Database
+
+TASK: Respond to terminal prompt 'What would you like to do with test_table?' Enter choice [2] to delete test_table from Database
 
 ## 4. Initialize Eviction Parser Tables & Views in Supabase Database
 
